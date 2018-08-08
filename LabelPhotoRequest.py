@@ -1,8 +1,3 @@
-import argparse
-import base64
-import json
-import sys
-import requests
 from SoundControl import SoundControl
 from WebCamCapture import WebCamCapture
 from GoogleVisionRequest import GoogleVisionRequest
@@ -13,86 +8,85 @@ class Label:
     score=0
 
 class ItemOfInterest:
-    tag = ""
-    tagList = list()
+    tag_list = list()
     threshold = 0
     priority = 0
-    coolDown = 0
-    lastTriggered = 0
-    nextTrigger = 0
-    audioResponse = ""
-    visualResponse = ""
+    cooldown = 0
+    last_triggered = 0
+    next_trigger = 0
+    audio_response = ""
+    visual_response = ""
 
-    def setTriggered(self):
-        self.lastTriggered = int(time.time())
-        self.nextTrigger = self.lastTriggered + self.coolDown
+    def set_triggered(self):
+        self.last_triggered = int(time.time())
+        self.next_trigger = self.last_triggered + self.cooldown
 
-    def matchesLabel(self, labelName, labelScore, currentPriority):
-        currentTime = time.time()
-        if currentTime > self.coolDown:
-            for thisTag in self.tagList:
-                if thisTag in labelName:
+    def matches_label(self, label_name, labelScore, current_priority):
+        current_time = time.time()
+        if current_time > self.cooldown:
+            for this_tag in self.tag_list:
+                if this_tag in label_name:
                     if labelScore > self.threshold:
-                        if self.priority < currentPriority:
+                        if self.priority < current_priority:
                             return True
         return False
 
-    def getPriority(self):
+    def get_priority(self):
         return self.priority
 
-    def triggerResponse(self):
-        self.setTriggered()
-        soundDisplay = SoundControl()
-        soundDisplay.soundAndImageDisplay(self.audioResponse, self.visualResponse, "API Matched Item")
+    def trigger_response(self):
+        self.set_triggered()
+        sound_display = SoundControl()
+        sound_display.soundAndImageDisplay(self.audio_response, self.visual_response, "API Matched Item")
 
 class LabelPhotoRequest:
 
-    labelList = list()
-    itemList = list()
-    googleRequest = GoogleVisionRequest()
+    label_list = list()
+    item_list = list()
+    google_request = GoogleVisionRequest()
 
 
 
-    def takePicture(self):
-        self.labelList.clear()
-        snapShot = WebCamCapture()
+    def take_picture(self):
+        self.label_list.clear()
+        snap_shot = WebCamCapture()
         features = "4:20"
 
-        if (snapShot.pictureCountdown()):
-            self.googleRequest.preparePicture(snapShot.getPictureName(), features)
-            if (self.googleRequest.sendPictureToAPI()):
+        if (snap_shot.picture_countdown()):
+            self.google_request.prepare_picture(snap_shot.get_picture_name(), features)
+            if (self.google_request.send_picture_to_api()):
                 try:
-                    dataList = self.googleRequest.getJSONDatalist()
+                    datalist = self.google_request.get_json_datalist()
 
-                    for responseItem in dataList['responses']:
-                        for labelItem in responseItem['labelAnnotations']:
-                            labelDetails = Label()
-                            labelDetails.description = labelItem['description']
-                            labelDetails.score = labelItem['score']
-                            self.labelList.append(labelDetails)
+                    for responseItem in datalist['responses']:
+                        for label_item in responseItem['labelAnnotations']:
+                            label_details = Label()
+                            label_details.description = label_item['description']
+                            label_details.score = label_item['score']
+                            self.label_list.append(label_details)
 
                     print("API Response")
-                    for thisThing in self.labelList:
-                        print(thisThing.description + " = " + str(thisThing.score))
+                    for this_thing in self.label_list:
+                        print(this_thing.description + " = " + str(this_thing.score))
 
-                    pictureMatch = False
-                    currentMatch = ItemOfInterest()
-                    currentMatch.priority = 100
+                    picture_match = False
+                    current_match = ItemOfInterest()
+                    current_match.priority = 100
 
-                    for visualLabel in self.labelList:
-                        for itemOfInterest in self.itemList:
-                            if itemOfInterest.matchesLabel(visualLabel.description, visualLabel.score, currentMatch.priority ):
-                                currentMatch = itemOfInterest
-                                pictureMatch = True
+                    for visual_label in self.label_list:
+                        for item_of_interest in self.item_list:
+                            if item_of_interest.matches_label(visual_label.description, visual_label.score, current_match.priority):
+                                current_match = item_of_interest
+                                picture_match = True
 
-                    if pictureMatch:
-                        currentMatch.triggerResponse()
+                    if picture_match:
+                        current_match.trigger_response()
                     else:
                         print ("No match")
-                        #snapShot.deletePicture()
+                        #snap_shot.deletePicture()
                 except:
-                    soundDisplay = SoundControl()
-                    soundDisplay.errorBlip()
+                    sound_display = SoundControl()
+                    sound_display.error_blip()
                     print("Issue processing data returned from Google Vision API")
 
 

@@ -1,44 +1,43 @@
 from cv2 import *
-import datetime
 import time
 import os
 from SoundControl import SoundControl
 
 class WebCamCapture:
-    pictureName = ""
-    lastPictureTaken = 0
-    timeBetweenShots = 1
-    displayCapturedPic = True
+    picture_name = ""
+    last_picture_taken = 0
+    time_between_shots = 1
+    display_captured_pic = True
 
-    def __setPictureName__(self):
-        self.lastPictureTaken = int(time.time())
-        self.pictureName = "capture\picture_" + str(self.lastPictureTaken) + ".jpg"
+    def __set_picture_name__(self):
+        self.last_picture_taken = int(time.time())
+        self.picture_name = "capture\picture_" + str(self.last_picture_taken) + ".jpg"
 
-    def getPictureName(self):
-        return self.pictureName
+    def get_picture_name(self):
+        return self.picture_name
 
-    def setDisplayedCapturedPic(self, value):
-        self.displayCapturedPic = value
+    def set_displayed_captured_pic(self, value):
+        self.display_captured_pic = value
 
 
-    def pictureCountdown(self):
-        soundDisplay = SoundControl()
-        shortPip = "sounds/short_tone.wav"
-        longPip = "sounds/short_tone.wav"
-        soundDisplay.justSound(shortPip)
+    def picture_countdown(self):
+        sound_display = SoundControl()
+        short_pip = "sounds/short_tone.wav"
+        long_pip = "sounds/short_tone.wav"
+        sound_display.justSound(short_pip)
         time.sleep(0.5)
-        soundDisplay.justSound(shortPip)
+        sound_display.justSound(short_pip)
         time.sleep(0.5)
-        soundDisplay.justSound(shortPip)
+        sound_display.justSound(short_pip)
         time.sleep(0.5)
-        soundDisplay.justSound(longPip)
-        returnVal = self.takePicture()
-        return returnVal
+        sound_display.justSound(long_pip)
+        return_val = self.take_picture()
+        return return_val
 
-    def takePicture(self):
+    def take_picture(self):
         # initialize the camera
         try:
-            soundDisplay = SoundControl()
+            sound_display = SoundControl()
 
             cam = VideoCapture(1)  # 1 -> index of camera
             if cam is None or not cam.isOpened():
@@ -47,18 +46,18 @@ class WebCamCapture:
 
             s, img = cam.read()
             cam.release()
-            soundDisplay.justSound("sounds/camera.wav")
-            self.__setPictureName__()
+            sound_display.justSound("sounds/camera.wav")
+            self.__set_picture_name__()
             if s:  # frame captured without any errors
-                imwrite(self.pictureName, img)  # save image
+                imwrite(self.picture_name, img)  # save image
 
-                if self.displayCapturedPic:
+                if self.display_captured_pic:
                     namedWindow("Captured Picture", WINDOW_AUTOSIZE)
                     imshow("Captured Picture", img)
                     waitKey(0)
                     destroyWindow("Captured Picture")
             else:
-                soundDisplay.errorBlip()
+                sound_display.error_blip()
                 return False
             return True
 
@@ -66,15 +65,8 @@ class WebCamCapture:
             print("No camera opened")
             return False
 
-    def deletePicture(self):
-        os.remove(self.pictureName)
+    def delete_picture(self):
+        os.remove(self.picture_name)
 
-"""
-picture = WebCamCapture()
-picture.__setPictureName__()
-if (picture.pictureCountdown()):
-    picture.deletePicture()
-"""
-"""if (picture.takePicture()):
-    picture.deletePicture()"""
+
 

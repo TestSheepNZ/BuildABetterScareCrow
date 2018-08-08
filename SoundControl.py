@@ -6,7 +6,7 @@ import numpy
 class SoundControl:
 
     # Plays an error blip if something goes wrong
-    def errorBlip(self):
+    def error_blip(self):
         try:
             playsound("sounds/error.wav")
         except:
@@ -28,14 +28,14 @@ class SoundControl:
             cv2.destroyWindow(windowLabel)
         except:
             print("ERROR - File not found")
-            self.errorBlip()
+            self.error_blip()
 
     def justSound (self, soundFile):
         try:
             playsound(soundFile)
         except:
             print("ERROR - File not found")
-            self.errorBlip()
+            self.error_blip()
 
 
 """

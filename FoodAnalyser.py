@@ -1,176 +1,172 @@
-import argparse
-import base64
-import json
-import sys
-import requests
+
 from LabelPhotoRequest import LabelPhotoRequest, Label, ItemOfInterest
 
-visionRequest = LabelPhotoRequest()
+vision_request = LabelPhotoRequest()
 
-def initialiseFoodItems():
-    LabelPhotoRequest.itemList.clear()
+def initialise_food_items():
+    LabelPhotoRequest.item_list.clear()
     baseThreshold = 0.4
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("crow")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 1
-    itemToCheck.audioResponse = "sounds/crow.wav"
-    itemToCheck.visualResponse = "images/crow.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("crow")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 1
+    item_to_check.audio_response = "sounds/crow.wav"
+    item_to_check.visual_response = "images/crow.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("bird")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 5
-    itemToCheck.audioResponse = "sounds/bird.wav"
-    itemToCheck.visualResponse = "images/bird.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("bird")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 5
+    item_to_check.audio_response = "sounds/bird.wav"
+    item_to_check.visual_response = "images/bird.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("banana")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 10
-    itemToCheck.audioResponse = "sounds/banana.wav"
-    itemToCheck.visualResponse = "images/banana.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("banana")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 10
+    item_to_check.audio_response = "sounds/banana.wav"
+    item_to_check.visual_response = "images/banana.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("apple")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 20
-    itemToCheck.audioResponse = "sounds/apple.wav"
-    itemToCheck.visualResponse = "images/apple.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("apple")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 20
+    item_to_check.audio_response = "sounds/apple.wav"
+    item_to_check.visual_response = "images/apple.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("tangerine")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 22
-    itemToCheck.audioResponse = "sounds/tangerine.wav"
-    itemToCheck.visualResponse = "images/orange.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("tangerine")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 22
+    item_to_check.audio_response = "sounds/tangerine.wav"
+    item_to_check.visual_response = "images/orange.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("mandarin")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 22
-    itemToCheck.audioResponse = "sounds/mandarin.wav"
-    itemToCheck.visualResponse = "images/orange.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("mandarin")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 22
+    item_to_check.audio_response = "sounds/mandarin.wav"
+    item_to_check.visual_response = "images/orange.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("orange")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 24
-    itemToCheck.audioResponse = "sounds/orange.wav"
-    itemToCheck.visualResponse = "images/orange.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("orange")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 24
+    item_to_check.audio_response = "sounds/orange.wav"
+    item_to_check.visual_response = "images/orange.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("kiwi")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 25
-    itemToCheck.audioResponse = "sounds/kiwi.wav"
-    itemToCheck.visualResponse = "images/kiwi.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("kiwi")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 25
+    item_to_check.audio_response = "sounds/kiwi.wav"
+    item_to_check.visual_response = "images/kiwi.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("mango")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 22
-    itemToCheck.audioResponse = "sounds/mango.wav"
-    itemToCheck.visualResponse = "images/mango.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("mango")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 22
+    item_to_check.audio_response = "sounds/mango.wav"
+    item_to_check.visual_response = "images/mango.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("fruit")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 50
-    itemToCheck.audioResponse = "sounds/fruit.wav"
-    itemToCheck.visualResponse = "images/fruit.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("fruit")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 50
+    item_to_check.audio_response = "sounds/fruit.wav"
+    item_to_check.visual_response = "images/fruit.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("food")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 60
-    itemToCheck.audioResponse = "sounds/food.wav"
-    itemToCheck.visualResponse = "images/food.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("food")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 60
+    item_to_check.audio_response = "sounds/food.wav"
+    item_to_check.visual_response = "images/food.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("produce")
-    itemToCheck.tagList.append("vegetable")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 60
-    itemToCheck.audioResponse = "sounds/vegetable.wav"
-    itemToCheck.visualResponse = "images/fruit.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("produce")
+    item_to_check.tag_list.append("vegetable")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 60
+    item_to_check.audio_response = "sounds/vegetable.wav"
+    item_to_check.visual_response = "images/fruit.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("cup")
-    itemToCheck.tagList.append("drink")
-    itemToCheck.tagList.append("coffee")
-    itemToCheck.tagList.append("tea")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 65
-    itemToCheck.audioResponse = "sounds/cup.wav"
-    itemToCheck.visualResponse = "images/cup.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("cup")
+    item_to_check.tag_list.append("drink")
+    item_to_check.tag_list.append("coffee")
+    item_to_check.tag_list.append("tea")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 65
+    item_to_check.audio_response = "sounds/cup.wav"
+    item_to_check.visual_response = "images/cup.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("pen")
-    itemToCheck.tagList.append("pencil")
-    itemToCheck.tagList.append("office supplies")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 80
-    itemToCheck.audioResponse = "sounds/pen.wav"
-    itemToCheck.visualResponse = "images/pen.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("pen")
+    item_to_check.tag_list.append("pencil")
+    item_to_check.tag_list.append("office supplies")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 80
+    item_to_check.audio_response = "sounds/pen.wav"
+    item_to_check.visual_response = "images/pen.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("utensil")
-    itemToCheck.tagList.append("cutlery")
-    itemToCheck.tagList.append("knife")
-    itemToCheck.tagList.append("fork")
-    itemToCheck.tagList.append("spoon")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 75
-    itemToCheck.audioResponse = "sounds/forks.wav"
-    itemToCheck.visualResponse = "images/forks.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("utensil")
+    item_to_check.tag_list.append("cutlery")
+    item_to_check.tag_list.append("knife")
+    item_to_check.tag_list.append("fork")
+    item_to_check.tag_list.append("spoon")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 75
+    item_to_check.audio_response = "sounds/forks.wav"
+    item_to_check.visual_response = "images/forks.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
-    itemToCheck = ItemOfInterest()
-    itemToCheck.tagList = list()
-    itemToCheck.tagList.append("human")
-    itemToCheck.tagList.append("man")
-    itemToCheck.tagList.append("woman")
-    itemToCheck.tagList.append("boy")
-    itemToCheck.tagList.append("girl")
-    itemToCheck.tagList.append("people")
-    itemToCheck.tagList.append("person")
-    itemToCheck.threshold = baseThreshold
-    itemToCheck.priority = 95
-    itemToCheck.audioResponse = "sounds/human.wav"
-    itemToCheck.visualResponse = "images/human.jpg"
-    LabelPhotoRequest.itemList.append(itemToCheck)
+    item_to_check = ItemOfInterest()
+    item_to_check.tag_list = list()
+    item_to_check.tag_list.append("human")
+    item_to_check.tag_list.append("man")
+    item_to_check.tag_list.append("woman")
+    item_to_check.tag_list.append("boy")
+    item_to_check.tag_list.append("girl")
+    item_to_check.tag_list.append("people")
+    item_to_check.tag_list.append("person")
+    item_to_check.threshold = baseThreshold
+    item_to_check.priority = 95
+    item_to_check.audio_response = "sounds/human.wav"
+    item_to_check.visual_response = "images/human.jpg"
+    LabelPhotoRequest.item_list.append(item_to_check)
 
 
-initialiseFoodItems()
-visionRequest.takePicture()
+initialise_food_items()
+vision_request.take_picture()

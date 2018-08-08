@@ -1,11 +1,7 @@
-import argparse
 import base64
 import json
-import sys
 import requests
 from SoundControl import SoundControl
-from WebCamCapture import WebCamCapture
-import time
 
 DETECTION_TYPES = [
     'TYPE_UNSPECIFIED',
@@ -32,14 +28,13 @@ def get_detection_type(detect_num):
 class GoogleVisionRequest:
     response = ""
     output_filename = "capture/json_image.json"
-    projectAPIKey = "USE YOUR OWN KEY PLEASE"
-    dataList = ""
+    project_api_key = ""
+    datalist = ""
 
-
-    def preparePicture(self, imageFilename, features):
+    def prepare_picture(self, image_filename, features):
 
         request_list = []
-        with open(imageFilename, 'rb') as image_file:
+        with open(image_filename, 'rb') as image_file:
             content_json_obj = {
                 'content': base64.b64encode(image_file.read()).decode('UTF-8')
             }
@@ -60,26 +55,26 @@ class GoogleVisionRequest:
         with open(self.output_filename, 'w') as output_file:
             json.dump({'requests': request_list}, output_file)
 
-    def getJSONDatalist(self):
-        return self.dataList
+    def get_json_datalist(self):
+        return self.datalist
 
-    def sendPictureToAPI(self):
+    def send_picture_to_api(self):
         try:
             data = open(self.output_filename)
 
 
-            urlRequest = "https://vision.googleapis.com/v1/images:annotate?key=" + self.projectAPIKey
-            print(urlRequest)
-            response = requests.post(url=urlRequest,
+            url_request = "https://vision.googleapis.com/v1/images:annotate?key=" + self.project_api_key
+            print(url_request)
+            response = requests.post(url=url_request,
                                      data=data,
                                      headers={'Content-Type': 'application/json'})
-            self.dataList = response.json()
+            self.datalist = response.json()
 
 
             return True
         except:
-            soundDisplay = SoundControl()
-            soundDisplay.errorBlip()
+            sound_display = SoundControl()
+            sound_display.error_blip()
             print("Error with response from Google Vision API")
             return False
 
