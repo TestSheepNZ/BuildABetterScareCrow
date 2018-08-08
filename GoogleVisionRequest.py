@@ -23,8 +23,6 @@ def get_detection_type(detect_num):
         return DETECTION_TYPES[0]
 
 
-
-
 class GoogleVisionRequest:
     response = ""
     output_filename = "capture/json_image.json"
@@ -62,20 +60,15 @@ class GoogleVisionRequest:
         try:
             data = open(self.output_filename)
 
-
             url_request = "https://vision.googleapis.com/v1/images:annotate?key=" + self.project_api_key
             print(url_request)
             response = requests.post(url=url_request,
                                      data=data,
                                      headers={'Content-Type': 'application/json'})
             self.datalist = response.json()
-
-
             return True
         except:
             sound_display = SoundControl()
             sound_display.error_blip()
             print("Error with response from Google Vision API")
             return False
-
-

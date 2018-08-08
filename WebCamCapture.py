@@ -19,7 +19,6 @@ class WebCamCapture:
     def set_displayed_captured_pic(self, value):
         self.display_captured_pic = value
 
-
     def picture_countdown(self):
         sound_display = SoundControl()
         short_pip = "sounds/short_tone.wav"
@@ -53,6 +52,7 @@ class WebCamCapture:
 
                 if self.display_captured_pic:
                     sound_display.sound_and_image_display("", img, "Captured Picture")
+
             else:
                 sound_display.error_blip()
                 return False

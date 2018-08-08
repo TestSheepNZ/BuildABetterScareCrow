@@ -3,9 +3,11 @@ from WebCamCapture import WebCamCapture
 from GoogleVisionRequest import GoogleVisionRequest
 import time
 
+
 class Label:
     description = ""
-    score=0
+    score = 0
+
 
 class ItemOfInterest:
     tag_list = list()
@@ -21,12 +23,12 @@ class ItemOfInterest:
         self.last_triggered = int(time.time())
         self.next_trigger = self.last_triggered + self.cooldown
 
-    def matches_label(self, label_name, labelScore, current_priority):
+    def matches_label(self, label_name, label_score, current_priority):
         current_time = time.time()
         if current_time > self.cooldown:
             for this_tag in self.tag_list:
                 if this_tag in label_name:
-                    if labelScore > self.threshold:
+                    if label_score > self.threshold:
                         if self.priority < current_priority:
                             return True
         return False
@@ -39,13 +41,11 @@ class ItemOfInterest:
         sound_display = SoundControl()
         sound_display.sound_and_picture_display(self.audio_response, self.visual_response, "API Matched Item")
 
-class LabelPhotoRequest:
 
+class LabelPhotoRequest:
     label_list = list()
     item_list = list()
     google_request = GoogleVisionRequest()
-
-
 
     def take_picture(self):
         self.label_list.clear()
@@ -82,13 +82,9 @@ class LabelPhotoRequest:
                     if picture_match:
                         current_match.trigger_response()
                     else:
-                        print ("No match")
+                        print("No match")
                         #snap_shot.deletePicture()
                 except:
                     sound_display = SoundControl()
                     sound_display.error_blip()
                     print("Issue processing data returned from Google Vision API")
-
-
-
-
