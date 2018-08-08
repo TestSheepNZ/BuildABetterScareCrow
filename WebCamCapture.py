@@ -13,7 +13,6 @@ class WebCamCapture:
     def __setPictureName__(self):
         self.lastPictureTaken = int(time.time())
         self.pictureName = "capture\picture_" + str(self.lastPictureTaken) + ".jpg"
-        print(self.pictureName)
 
     def getPictureName(self):
         return self.pictureName
@@ -51,7 +50,6 @@ class WebCamCapture:
             soundDisplay.justSound("sounds/camera.wav")
             self.__setPictureName__()
             if s:  # frame captured without any errors
-                print(self.pictureName)
                 imwrite(self.pictureName, img)  # save image
 
                 if self.displayCapturedPic:
