@@ -28,7 +28,7 @@ def get_detection_type(detect_num):
 class GoogleVisionRequest:
     response = ""
     output_filename = "capture/json_image.json"
-    project_api_key = ""
+    project_api_key = "AIzaSyAh8T968JfS103vQRX_MvQrXDgccSwsAw0"
     datalist = ""
 
     def prepare_picture(self, image_filename, features):

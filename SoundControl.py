@@ -12,23 +12,28 @@ class SoundControl:
         except:
             print("ERROR - File not found")
 
-    """
-    def soundAndImageDisplay(self, soundFile, imageFile):
-        self.soundAndImageDisplay(soundFile, imageFile, "image")
-    """
-
-    def soundAndImageDisplay (self, soundFile, imageFile, windowLabel):
+    def sound_and_picture_display (self, sound_file, image_file, window_label):
         try:
-            img = cv2.imread(imageFile)
+            img = cv2.imread(image_file)
 
-            cv2.namedWindow(windowLabel, WINDOW_AUTOSIZE)
-            cv2.imshow(windowLabel, img)
-            playsound(soundFile)
-            cv2.waitKey()
-            cv2.destroyWindow(windowLabel)
+            self.sound_and_image_display(sound_file,img,window_label)
         except:
             print("ERROR - File not found")
             self.error_blip()
+
+    # Here raw image is passed
+    def sound_and_image_display (self, sound_file, img, window_label):
+        try:
+            cv2.namedWindow(window_label, WINDOW_AUTOSIZE)
+            cv2.imshow(window_label, img)
+            if(sound_file != ""):
+                playsound(sound_file)
+            cv2.waitKey()
+            cv2.destroyWindow(window_label)
+        except:
+            print("ERROR - File not found")
+            self.error_blip()
+
 
     def justSound (self, soundFile):
         try:
@@ -36,6 +41,8 @@ class SoundControl:
         except:
             print("ERROR - File not found")
             self.error_blip()
+
+
 
 
 """

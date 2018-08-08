@@ -52,10 +52,7 @@ class WebCamCapture:
                 imwrite(self.picture_name, img)  # save image
 
                 if self.display_captured_pic:
-                    namedWindow("Captured Picture", WINDOW_AUTOSIZE)
-                    imshow("Captured Picture", img)
-                    waitKey(0)
-                    destroyWindow("Captured Picture")
+                    sound_display.sound_and_image_display("", img, "Captured Picture")
             else:
                 sound_display.error_blip()
                 return False

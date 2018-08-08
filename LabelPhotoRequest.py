@@ -37,7 +37,7 @@ class ItemOfInterest:
     def trigger_response(self):
         self.set_triggered()
         sound_display = SoundControl()
-        sound_display.soundAndImageDisplay(self.audio_response, self.visual_response, "API Matched Item")
+        sound_display.sound_and_picture_display(self.audio_response, self.visual_response, "API Matched Item")
 
 class LabelPhotoRequest:
 
