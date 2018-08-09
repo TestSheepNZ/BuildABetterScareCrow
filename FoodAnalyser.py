@@ -4,7 +4,7 @@ vision_request = LabelPhotoRequest()
 
 
 def initialise_food_items():
-    vision_request.item_list.clear()
+    vision_request.items_of_interest_list.clear()
     base_threshold = 0.4
 
     item_to_check = ItemOfInterest()
@@ -14,7 +14,7 @@ def initialise_food_items():
     item_to_check.priority = 1
     item_to_check.audio_response = "sounds/crow.wav"
     item_to_check.visual_response = "images/crow.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -23,7 +23,7 @@ def initialise_food_items():
     item_to_check.priority = 5
     item_to_check.audio_response = "sounds/bird.wav"
     item_to_check.visual_response = "images/bird.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -32,7 +32,7 @@ def initialise_food_items():
     item_to_check.priority = 10
     item_to_check.audio_response = "sounds/banana.wav"
     item_to_check.visual_response = "images/banana.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -41,7 +41,7 @@ def initialise_food_items():
     item_to_check.priority = 20
     item_to_check.audio_response = "sounds/apple.wav"
     item_to_check.visual_response = "images/apple.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -50,7 +50,7 @@ def initialise_food_items():
     item_to_check.priority = 22
     item_to_check.audio_response = "sounds/tangerine.wav"
     item_to_check.visual_response = "images/orange.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -59,7 +59,7 @@ def initialise_food_items():
     item_to_check.priority = 22
     item_to_check.audio_response = "sounds/mandarin.wav"
     item_to_check.visual_response = "images/orange.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -68,7 +68,7 @@ def initialise_food_items():
     item_to_check.priority = 24
     item_to_check.audio_response = "sounds/orange.wav"
     item_to_check.visual_response = "images/orange.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -77,7 +77,7 @@ def initialise_food_items():
     item_to_check.priority = 25
     item_to_check.audio_response = "sounds/kiwi.wav"
     item_to_check.visual_response = "images/kiwi.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -86,7 +86,7 @@ def initialise_food_items():
     item_to_check.priority = 22
     item_to_check.audio_response = "sounds/mango.wav"
     item_to_check.visual_response = "images/mango.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -95,7 +95,7 @@ def initialise_food_items():
     item_to_check.priority = 50
     item_to_check.audio_response = "sounds/fruit.wav"
     item_to_check.visual_response = "images/fruit.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -104,7 +104,7 @@ def initialise_food_items():
     item_to_check.priority = 60
     item_to_check.audio_response = "sounds/food.wav"
     item_to_check.visual_response = "images/food.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -114,7 +114,7 @@ def initialise_food_items():
     item_to_check.priority = 60
     item_to_check.audio_response = "sounds/vegetable.wav"
     item_to_check.visual_response = "images/fruit.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -126,7 +126,7 @@ def initialise_food_items():
     item_to_check.priority = 65
     item_to_check.audio_response = "sounds/cup.wav"
     item_to_check.visual_response = "images/cup.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -137,7 +137,7 @@ def initialise_food_items():
     item_to_check.priority = 80
     item_to_check.audio_response = "sounds/pen.wav"
     item_to_check.visual_response = "images/pen.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -150,7 +150,7 @@ def initialise_food_items():
     item_to_check.priority = 75
     item_to_check.audio_response = "sounds/forks.wav"
     item_to_check.visual_response = "images/forks.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
     item_to_check = ItemOfInterest()
     item_to_check.tag_list = list()
@@ -165,8 +165,9 @@ def initialise_food_items():
     item_to_check.priority = 95
     item_to_check.audio_response = "sounds/human.wav"
     item_to_check.visual_response = "images/human.jpg"
-    vision_request.item_list.append(item_to_check)
+    vision_request.items_of_interest_list.append(item_to_check)
 
 
 initialise_food_items()
+vision_request.take_picture()
 vision_request.take_picture()

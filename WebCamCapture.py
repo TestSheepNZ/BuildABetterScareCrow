@@ -3,11 +3,14 @@ import time
 import os
 from SoundControl import SoundControl
 
+
 class WebCamCapture:
     picture_name = ""
     last_picture_taken = 0
     time_between_shots = 1
     display_captured_pic = True
+    camera_countdown_on = True
+    cam = 0
 
     def __set_picture_name__(self):
         self.last_picture_taken = int(time.time())
@@ -19,32 +22,40 @@ class WebCamCapture:
     def set_displayed_captured_pic(self, value):
         self.display_captured_pic = value
 
+    def set_camera_countdown(self, value):
+        self.camera_countdown_on = value
+
     def picture_countdown(self):
         sound_display = SoundControl()
-        short_pip = "sounds/short_tone.wav"
-        long_pip = "sounds/short_tone.wav"
-        sound_display.justSound(short_pip)
-        time.sleep(0.5)
-        sound_display.justSound(short_pip)
-        time.sleep(0.5)
-        sound_display.justSound(short_pip)
-        time.sleep(0.5)
-        sound_display.justSound(long_pip)
-        return_val = self.take_picture()
+        if(self.camera_countdown_on):
+            short_pip = "sounds/short_tone.wav"
+            long_pip = "sounds/short_tone.wav"
+            sound_display.justSound(short_pip)
+            time.sleep(0.5)
+            sound_display.justSound(short_pip)
+            time.sleep(0.5)
+            sound_display.justSound(short_pip)
+            time.sleep(0.5)
+            sound_display.justSound(long_pip)
+        return_val = self.__get_picture_from_camera__()
         return return_val
 
-    def take_picture(self):
+    def __init_camera__(self):
+        self.camera_initialised = True
+        self.cam = VideoCapture(1)  # 1 -> index of camera
+        if self.cam  is None or not self.cam.isOpened():
+            self.cam.release()
+            self.cam = VideoCapture(0)
+
+    def __get_picture_from_camera__(self):
         # initialize the camera
         try:
             sound_display = SoundControl()
+            if (self.cam == 0):
+                self.__init_camera__()
 
-            cam = VideoCapture(1)  # 1 -> index of camera
-            if cam is None or not cam.isOpened():
-                cam.release()
-                cam = VideoCapture(0)
+            s, img = self.cam.read()
 
-            s, img = cam.read()
-            cam.release()
             sound_display.justSound("sounds/camera.wav")
             self.__set_picture_name__()
             if s:  # frame captured without any errors
@@ -55,7 +66,12 @@ class WebCamCapture:
 
             else:
                 sound_display.error_blip()
+                self.cam.release()
                 return False
+
+            #self.cam.release()
+            #cv2.destroyAllWindows()
+
             return True
 
         except:
