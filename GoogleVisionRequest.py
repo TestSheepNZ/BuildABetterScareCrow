@@ -30,28 +30,35 @@ class GoogleVisionRequest:
     datalist = ""
 
     def prepare_picture(self, image_filename, features):
+        try:
+            request_list = []
+            with open(image_filename, 'rb') as image_file:
+                content_json_obj = {
+                    'content': base64.b64encode(image_file.read()).decode('UTF-8')
+                }
 
-        request_list = []
-        with open(image_filename, 'rb') as image_file:
-            content_json_obj = {
-                'content': base64.b64encode(image_file.read()).decode('UTF-8')
-            }
+            feature_json_obj = []
+            for word in features.split(' '):
+                feature, max_results = word.split(':', 1)
+                feature_json_obj.append({
+                    'type': get_detection_type(feature),
+                    'maxResults': int(max_results),
+                })
 
-        feature_json_obj = []
-        for word in features.split(' '):
-            feature, max_results = word.split(':', 1)
-            feature_json_obj.append({
-                'type': get_detection_type(feature),
-                'maxResults': int(max_results),
+            request_list.append({
+                'features': feature_json_obj,
+                'image': content_json_obj,
             })
 
-        request_list.append({
-            'features': feature_json_obj,
-            'image': content_json_obj,
-        })
+            with open(self.output_filename, 'w') as output_file:
+                json.dump({'requests': request_list}, output_file)
+            return True
+        except (FileNotFoundError, IOError):
+            print("File " + image_file + " could not be found")
+            return False
+        except (FileExistsError, IOError):
+            print("File " + image_file + " does not exist")
 
-        with open(self.output_filename, 'w') as output_file:
-            json.dump({'requests': request_list}, output_file)
 
     def get_json_datalist(self):
         return self.datalist

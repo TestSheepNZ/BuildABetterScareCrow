@@ -1,6 +1,6 @@
-from LabelPhotoRequest import LabelPhotoRequest, Label, ItemOfInterest
+from PictureAnalysis import PictureAnalysis, Label, ItemOfInterest
 
-vision_request = LabelPhotoRequest()
+vision_request = PictureAnalysis()
 
 
 def initialise_food_items():
@@ -169,5 +169,7 @@ def initialise_food_items():
 
 
 initialise_food_items()
-vision_request.take_picture()
-vision_request.take_picture()
+print()
+vision_request.take_picture("LABEL")
+print()
+vision_request.take_picture("LABEL")
