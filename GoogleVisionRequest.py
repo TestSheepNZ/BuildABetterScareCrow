@@ -26,7 +26,7 @@ def get_detection_type(detect_num):
 class GoogleVisionRequest:
     response = ""
     output_filename = "capture/json_image.json"
-    project_api_key = ""
+    project_api_key = "PUT IN YOUR GOOGLE CODE HERE"
     datalist = ""
 
     def prepare_picture(self, image_filename, features):
@@ -54,10 +54,11 @@ class GoogleVisionRequest:
                 json.dump({'requests': request_list}, output_file)
             return True
         except (FileNotFoundError, IOError):
-            print("File " + image_file + " could not be found")
+            print("File " + image_filename + " could not be found")
             return False
         except (FileExistsError, IOError):
-            print("File " + image_file + " does not exist")
+            print("File " + image_filename + " does not exist")
+            return False
 
 
     def get_json_datalist(self):

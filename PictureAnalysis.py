@@ -121,6 +121,7 @@ class PictureAnalysis:
     request_mode = Context.LABEL
     features = "4:20"
     confidence_threshold = 0.75
+    face_data = Facial()
 
     #sets the type of request asked for - currently label analysis or facial read
     def __set_context__(self, request):
@@ -216,7 +217,7 @@ class PictureAnalysis:
             print("Average joy " + str(total_face_data.get_average_joy()))
             print(get_likelihood_type(int(0.5 + total_face_data.get_average_joy())))
 
-            return total_face_data
+            self.face_data = total_face_data
 
         except:
             print("Issues with response for facial data")
